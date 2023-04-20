@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	cloud.google.com/go v0.110.0
-	github.com/gopatchy/jsrest v0.0.0-20230420161234-12a6d6da8b7f
+	github.com/gopatchy/jsrest v0.0.0-20230420184928-8e3c5df83e40
 	github.com/stretchr/testify v1.8.2
 	go.uber.org/goleak v1.2.1
 	golang.org/x/exp v0.0.0-20230420155640-133eef4313cb
