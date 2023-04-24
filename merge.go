@@ -3,6 +3,8 @@ package path
 import (
 	"encoding/json"
 	"reflect"
+
+	"github.com/gopatchy/jsrest"
 )
 
 func Merge(to, from any) {
@@ -33,8 +35,7 @@ func MergeValue(to, from reflect.Value) {
 func MergeMap(to any, from map[string]any) error {
 	m, err := ToMap(to)
 	if err != nil {
-		// TODO: Wrap error
-		return err
+		return jsrest.Errorf(jsrest.ErrInternalServerError, "converting to map failed (%w)", err)
 	}
 
 	MergeMaps(m, from)
@@ -61,16 +62,14 @@ func MergeMaps(to map[string]any, from map[string]any) {
 func ToMap(from any) (map[string]any, error) {
 	js, err := json.Marshal(from)
 	if err != nil {
-		// TODO: Wrap error
-		return nil, err
+		return nil, jsrest.Errorf(jsrest.ErrInternalServerError, "json marshal failed (%w)", err)
 	}
 
 	ret := map[string]any{}
 
 	err = json.Unmarshal(js, &ret)
 	if err != nil {
-		// TODO: Wrap error
-		return nil, err
+		return nil, jsrest.Errorf(jsrest.ErrInternalServerError, "json unmarshal failed (%w)", err)
 	}
 
 	return ret, nil
@@ -79,10 +78,13 @@ func ToMap(from any) (map[string]any, error) {
 func FromMap(to any, from map[string]any) error {
 	js, err := json.Marshal(from)
 	if err != nil {
-		// TODO: Wrap error
-		return err
+		return jsrest.Errorf(jsrest.ErrInternalServerError, "json marshal failed (%w)", err)
 	}
 
-	// TODO: Wrap error
-	return json.Unmarshal(js, to)
+	err = json.Unmarshal(js, to)
+	if err != nil {
+		return jsrest.Errorf(jsrest.ErrInternalServerError, "json unmarshal failed (%w)", err)
+	}
+
+	return nil
 }
