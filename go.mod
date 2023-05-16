@@ -7,7 +7,7 @@ require (
 	github.com/gopatchy/jsrest v0.0.0-20230516044950-1c6d15dad16a
 	github.com/stretchr/testify v1.8.2
 	go.uber.org/goleak v1.2.1
-	golang.org/x/exp v0.0.0-20230510235704-dd950f8aeaea
+	golang.org/x/exp v0.0.0-20230515195305-f3d0a9c9a5cc
 )
 
 require (
